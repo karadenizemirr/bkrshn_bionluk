@@ -2,26 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@font-face {
+  font-family: "poppins-regular";
+  src: url(../style/fonts/Poppins/Poppins-Regular.ttf);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@font-face {
+  font-family: 'poppins-medium';
+  src: url(../style/fonts/Poppins/Poppins-Medium.ttf);
+}
+
+@font-face {
+  font-family: 'poppins-bold';
+  src: url(../style/fonts/Poppins/Poppins-Bold.ttf);
+}
+
+@font-face {
+  font-family: 'poppins-extrabold';
+  src: url(../style/fonts/Poppins/Poppins-ExtraBold.ttf);
+}
+
+@font-face {
+  font-family: 'poppins-italic';
+  src: url(../style/fonts/Poppins/Poppins-Italic.ttf);
+}
+
+@layer components {
+  .form-element {
+    @apply bg-white w-full p-3 rounded-full shadow-md shadow-gray-200 outline-red-200;
   }
-}
+  .btn-primary {
+    @apply bg-primary text-white p-2 px-5 rounded-full shadow-xl hover:bg-gray-400 hover:shadow-none duration-200;
+  }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  .btn-secondary {
+    @apply bg-yellow-300 p-2 px-5 rounded-full shadow-md hover:bg-gray-400 hover:shadow-none duration-200;
+  }
 }
