@@ -1,17 +1,18 @@
 import React from "react";
 
-export default function TableComponent() {
+export default function TableComponent({ data, th }: { data?: any, th?: any }) {
     return (
         <div className="relative overflow-x-auto shadow-md shadow-gray-200 rounded-full">
             <table className="w-full text-sm text-left text-gray-500 ">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
                     <tr>
-                        <th scope="col" className="px-6 py-3">
-                            Kategori Adı
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Eklenme Tarihi
-                        </th>
+                        {
+                            th.map((item: any, index: number) => (
+                                <th className="px-6 py-3" key={index} >
+                                    {item}
+                                </th>
+                            ))
+                        }
                         <th scope="col" className="px-6 py-3">
                             İşlem
                         </th>

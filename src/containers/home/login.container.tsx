@@ -1,7 +1,7 @@
 "use client"
 import { Field, Form, Formik } from "formik";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
-import Reactü from "react";
 
 export default function LoginContainer(){
     return (
@@ -12,7 +12,16 @@ export default function LoginContainer(){
                         Yazar Girişi
                     </h1>
                 </div>
-                <Formik initialValues={{}} onSubmit={() => {}} >
+                <Formik initialValues={{
+                    email: "",
+                    password: ""
+                }} onSubmit={(values:any) => {
+                    signIn('credentials', {
+                        email:values.email,
+                        password:values.password,
+                        callbackUrl: "/"
+                    })
+                }} >
                     <Form className="flex flex-col gap-5" >
                         <div className="row flex flex-1 gap-4">
                             <Field name="email" id="email" placeholder="Email" className="form-element" autocomplete="off" />

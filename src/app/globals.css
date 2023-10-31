@@ -29,13 +29,17 @@
 
 @layer components {
   .form-element {
-    @apply bg-white w-full p-3 rounded-full shadow-md shadow-gray-200 outline-red-200;
+    @apply bg-white w-full p-3 rounded-lg shadow-md shadow-gray-200 outline-red-200;
   }
   .btn-primary {
-    @apply bg-primary text-white p-2 px-5 rounded-full shadow-xl hover:bg-gray-400 hover:shadow-none duration-200;
+    @apply bg-primary text-white p-2 px-5 rounded-full  hover:bg-gray-400 hover:shadow-none duration-200;
   }
 
   .btn-secondary {
-    @apply bg-yellow-300 p-2 px-5 rounded-full shadow-md hover:bg-gray-400 hover:shadow-none duration-200;
+    @apply bg-yellow-300 p-2 px-5 rounded-full hover:bg-gray-400 hover:shadow-none duration-200;
+  }
+
+  .custom-card-style {
+    @apply shadow-md shadow-gray-200 rounded-lg p-5; 
   }
 }

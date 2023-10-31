@@ -1,32 +1,30 @@
-"use client"
-import TableComponent from "@/components/table/table.component";
-import { Field, Form, Formik } from "formik";
+import CategoryContainer from "@/containers/admin/category.container";
 import React from "react";
 
-export default function CategoryPage() {
-    
+export const getAllCategory = async () => {
+    try{
+        const categories = await fetch(process.env.NEXT_PUBLIC_API_URL + '/admin/category', {
+            method:'GET',
+            headers:{
+                'content-type':'application/json'
+            },
+            cache: 'no-cache'
+        })
+        const {ok, data} = await categories.json()
+        if (ok) return data
+
+        return []
+
+    }catch(err){
+        return []
+    }
+}
+
+export default async function CategoryPage() {
+    const categories = await getAllCategory()
     return (
-        <div className="mt-10 mb-10" >
-            <div className="topbar text-center">
-                <h1 className="mb-10 text-2xl" >
-                    Kategoriler
-                </h1>
-            </div>
-            <div className="addCategory">
-                <Formik initialValues={{}} onSubmit={() => {}}>
-                    <Form className="mt-10 mb-10">
-                        <div className="row flex flex-1 justify-between gap-5">
-                            <Field name="title" placeholder="Kategori Adı" className="form-element" />
-                            <button className="btn-secondary">
-                                Ekle
-                            </button>
-                        </div>
-                    </Form>
-                </Formik>
-            </div>
-            <div className="table w-full">
-                <TableComponent />
-            </div>
-        </div>
+        <>
+            <CategoryContainer categories={categories} />
+        </>
     )
 }
