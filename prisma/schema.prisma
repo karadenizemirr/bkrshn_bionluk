@@ -24,6 +24,7 @@ model User {
   country   String?
   city      String?
   avatar    Avatar?
+  isActive Boolean @default(false)
   post      Post[]
   role      String    @default("user")
   createdAt DateTime  @default(now())
@@ -41,22 +42,24 @@ model Avatar {
 model Category {
   id        String   @id @default(uuid())
   title     String
+  slug      String?
   createdAt DateTime @default(now())
-  post      Post?     @relation(fields: [postId], references: [id])
-  postId    String?
+  post      Post[]
 }
 
 model Post {
-  id        String     @id @default(uuid())
-  title     String
-  keywords  String
-  content   String
-  createdAt DateTime   @default(now())
-  category  Category[]
-  image     Image[]
-  user      User       @relation(fields: [userId], references: [id])
-  userId    String
-  isStatus Boolean @default(false)
+  id         String     @id @default(uuid())
+  title      String
+  keywords   String
+  content    String
+  createdAt  DateTime   @default(now())
+  image      Image[]
+  user       User       @relation(fields: [userId], references: [id])
+  userId     String
+  isStatus   Boolean    @default(false)
+  category   Category?  @relation(fields: [categoryId], references: [id])
+  categoryId String?
+  comment    Commment[]
 }
 
 model Image {
@@ -66,4 +69,16 @@ model Image {
   createdAt DateTime @default(now())
   post      Post?    @relation(fields: [postId], references: [id])
   postId    String?
+}
+
+model Commment {
+  id        String   @id @default(uuid())
+  name      String
+  surname   String
+  comment   String
+  rate      Int
+  createdAt DateTime @default(now())
+  post      Post?    @relation(fields: [postId], references: [id])
+  postId    String?
+  isStatus  Boolean  @default(false)
 }

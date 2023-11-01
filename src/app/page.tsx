@@ -1,11 +1,10 @@
 import AdvertComponent from '@/components/advert/advert.component'
 import CardComponent from '@/components/card/card.component'
-import FooterComponent from '@/components/footer/footer.component'
 import HeaderComponent from '@/components/header/header.component'
 import LatestPostSliderComponent from '@/components/latest-post/latestPostSlider.component'
 
 
-export const fetchGetAllPost = async () => {
+const fetchGetAllPost = async () => {
   try {
     const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/home/allPost', {
       method: 'GET',
@@ -25,7 +24,6 @@ export const fetchGetAllPost = async () => {
     return []
   }
 }
-
 export default async function Home() {
   const posts = await fetchGetAllPost()
   const postsFilter = posts.slice(0, 10)

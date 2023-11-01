@@ -1,11 +1,8 @@
 "use client"
-import { Cloudinary } from "@cloudinary/url-gen/index";
 import { Field, Form, Formik } from "formik";
 import Image from "next/image";
 import React from "react";
 import { toast } from "react-toastify";
-import { CldUploadButton } from 'next-cloudinary';
-import cloudinaryUpload from "@/lib/cloudinary";
 import cloudinaryUploadSingle from "@/lib/cloudinary";
 import { useSession } from "next-auth/react";
 
@@ -159,8 +156,8 @@ export default function ProfileEditContainer({ user }: { user?: any }) {
                                             id="about"
                                             placeholder="Hakkımda (En fazla 255 karakter)"
                                             className="form-element rounded-lg"
-                                            onChange={() => {
-                                                form.setFieldValue("about", field.value)
+                                            onChange={(e:any) => {
+                                                form.setFieldValue("about", e.target.value)
                                             }}>
                                             {user?.about}
                                         </textarea>

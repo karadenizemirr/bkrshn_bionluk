@@ -9,7 +9,8 @@ export default async function getPost(req:NextApiRequest, res:NextApiResponse){
 
         const post = await prisma.post.findUnique({
             where:{
-                id: id as string
+                id: id as string,
+                isStatus: true
             },
             select: {
                 id: true,
@@ -28,6 +29,7 @@ export default async function getPost(req:NextApiRequest, res:NextApiResponse){
                     }
                 },
                 image:true,
+                comment: true
             }
 
         })

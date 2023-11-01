@@ -4,7 +4,7 @@ import React from "react";
 
 export const fetchGetPost = async (id:string) => {
     try{
-        const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/home/getPost?id=' + id)
+        const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/home/getPost?id=' + id, {cache: 'no-cache'})
 
         const {ok, data} = await res.json()
 
@@ -18,6 +18,8 @@ export const fetchGetPost = async (id:string) => {
 
 export default async function PostDetail({params}: {params: {id:string}}){
     const post = await fetchGetPost(params?.id)
+
+    console.log(post)
 
     return (
         <div className="mx-auto container px-20 mt-10" >

@@ -3,6 +3,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faInstagram, faTwitter, faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
+import CommmentComponent from "@/components/comment/comment.component";
 
 export default function PostDetailContainer({post}:{post:any}) {
     return (
@@ -74,6 +75,9 @@ export default function PostDetailContainer({post}:{post:any}) {
                     {post?.user?.about}
                 </div>
                 
+            </div>
+            <div className="comment mt-10">
+                <CommmentComponent postId={post?.id} comments = {post?.comment} />
             </div>
         </div>
     )

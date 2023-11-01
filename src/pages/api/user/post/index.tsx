@@ -12,11 +12,6 @@ const UserPost = async (req:NextApiRequest, res:NextApiResponse) => {
                 data: {
                     title:title,
                     keywords: keywords,
-                    category: {
-                        connect: {
-                            id: category
-                        }
-                    },
                     content: content,
                     user: {
                         connect: {
@@ -27,6 +22,11 @@ const UserPost = async (req:NextApiRequest, res:NextApiResponse) => {
                         create:{
                             url: image,
                             alt: slugify(title, {replacement:'-', lower: true})
+                        }
+                    },
+                    category:{
+                        connect: {
+                            id: category
                         }
                     }
                 }

@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 
 export default function HeaderComponent({ post }: { post: any }) {
-    const item = post.slice(0, 4)
+    const item = post.slice(0, 5)
 
     return (
         <div className="mt-10" >

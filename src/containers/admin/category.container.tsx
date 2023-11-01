@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 export default function CategoryContainer({ categories }: { categories: any }) {
     return (
-        <div className="mt-10 mb-10" >
+        <div className="mt-10 mb-10 mx-auto container px-20 h-[70vh]" >
             <div className="topbar text-center">
                 <h1 className="mb-10 text-2xl" >
                     Kategoriler
@@ -47,7 +47,7 @@ export default function CategoryContainer({ categories }: { categories: any }) {
                 </Formik>
             </div>
             <div className="table w-full">
-                <div className="relative overflow-x-auto shadow-md shadow-gray-200 rounded-full">
+                <div className="relative overflow-x-auto shadow-md shadow-gray-200 rounded-lg">
                     <table className="w-full text-sm text-center text-gray-500 ">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
                             <tr>

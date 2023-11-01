@@ -1,0 +1,17 @@
+.postCardContainer {
+  display: flex;
+  overflow: hidden;
+}
+
+.postCard {
+  animation: slide 5s linear infinite alternate;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

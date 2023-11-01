@@ -1,6 +1,8 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { toast } from "react-toastify";
 
 export default function PostListContainer({ posts }: { posts?: any }) {
     return (
@@ -27,6 +29,9 @@ export default function PostListContainer({ posts }: { posts?: any }) {
                                 <th scope="col" className="px-6 py-3">
                                     Kategorisi
                                 </th>
+                                <th scope="col" className="px-6 py-3" >
+                                    Durumu
+                                </th>
 
                                 <th scope="col" className="px-6 py-3">
                                     İşlem
@@ -47,13 +52,24 @@ export default function PostListContainer({ posts }: { posts?: any }) {
                                             {item.createdAt}
                                         </td>
                                         <td className="px-6 py-4" key={index}>
-                                            {item?.category[0]?.title}
+                                            {item?.category?.title}
+                                        </td>
+                                        <td>
+                                            {
+                                                item?.isStatus ? ( <span className="text-green-500" >Onaylandı</span> ):( <span className="text-red-500" >Onaylanmadı</span> )
+                                            }
                                         </td>
                                         <td className="px-6 py-4" key={index}>
-                                            <Link href={`/post/update/${item.id}`} className="btn-primary shadow-none bg-green-400 mr-3" >
+                                            <Link href={`/user/post/update/${item.id}`} className="btn-primary shadow-none bg-green-400 mr-3" >
                                                 Düzenle
                                             </Link>
-                                            <button className="btn-primary shadow-none bg-red-400" >
+                                            <button className="btn-primary shadow-none bg-red-400"
+                                                onClick={async () => {
+                                                    const res = await fetch(process.env.NEXT_PUBLIC_API_URL +  "/user/get/deletePost?id=" + item?.id, {method:'GET'})
+                                                    if (res.status === 200) toast.success('Yazı başarıyla silindi.')
+                                                    else toast.warning('Yazı silinirken bir sorun meydana geldi.')
+                                                }}
+                                            >
                                                 Sil
                                             </button>
                                         </td>

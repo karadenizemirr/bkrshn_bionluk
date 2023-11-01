@@ -3,7 +3,7 @@ import { authOption } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import React from "react";
 
-export const getUser = async () => {
+const getUser = async () => {
     try{
         const session:any = await getServerSession(authOption)
         const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/user/' + session?.user.id, {

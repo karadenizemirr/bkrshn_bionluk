@@ -1,4 +1,4 @@
-import { getAllCategory } from "@/app/(admin)/category/page";
+import { getAllCategory } from "@/app/(editor)/editor/category/page";
 import PostAddContainer from "@/containers/user/postAdd.container";
 import React from "react";
 

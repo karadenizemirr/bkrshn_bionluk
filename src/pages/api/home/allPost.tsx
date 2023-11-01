@@ -27,6 +27,9 @@ export default async function GetAllPost(req:NextApiRequest, res:NextApiResponse
                     keywords: true,
                     createdAt: true,
                     id: true
+                },
+                where: {
+                    isStatus: true
                 }
             }
         )

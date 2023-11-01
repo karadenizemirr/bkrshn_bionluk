@@ -59,7 +59,7 @@ export default function EdıtorsPostsContainer({ posts }: { posts: any }) {
                                                 {item?.createdAt}
                                             </td>
                                             <td className="px-6 py-4" >
-                                                {item?.category[0]?.title}
+                                                {item?.category?.title}
                                             </td>
                                             <td className="px-6 py-4" >
                                                 {

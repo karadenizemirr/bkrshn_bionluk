@@ -1,6 +1,6 @@
 import prisma from "@/lib/prisma"
 import { NextApiRequest, NextApiResponse } from "next"
-
+import slugify from "slugify"
 export const fetchCategory = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         if (req.method === 'GET') {
@@ -14,7 +14,8 @@ export const fetchCategory = async (req: NextApiRequest, res: NextApiResponse) =
 
             const category = await prisma.category.create({
                 data: {
-                    title: title as string
+                    title: title as string,
+                    slug: slugify(title, {replacement: '-', lower: true})
                 }
             })
             return res.status(200).send({ ok: true })
