@@ -9,12 +9,6 @@ const nextConfig = {
         ],
         domains:['res.cloudinary.com'],
         formats:['image/webp']
-    },
-    experimental: {
-        typedRoutes: true,
-    },
-    typescript: {
-        ignoreBuildErrors: true
     }
 }
 

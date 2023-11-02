@@ -2,7 +2,7 @@ import PostDetailContainer from "@/containers/home/post.detail.container";
 import React from "react";
 
 
-export const fetchGetPost = async (id:string) => {
+const fetchGetPost = async (id:string) => {
     try{
         const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/home/getPost?id=' + id, {cache: 'no-cache'})
 

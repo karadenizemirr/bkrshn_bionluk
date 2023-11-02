@@ -7,7 +7,8 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 export default function NavbarComponent({ categories, posts }: { categories?: any, posts?: any }) {
-    const { data: session }: { data: any } = useSession();
+
+    const [session,setSession] = useState<any>()
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [categoryOpen, setCategoryOpen] = useState<boolean>(false)
     const [postIndex, setPostIndex] = useState(0)
@@ -22,7 +23,10 @@ export default function NavbarComponent({ categories, posts }: { categories?: an
                 setPostIndex(0)
             }
         }, 3000)
-    }, [postIndex])
+        const { data: session }: { data: any } = useSession();
+        setSession(session)
+        
+    }, [postIndex,session])
 
 
     const handleToggleMenu = () => {
