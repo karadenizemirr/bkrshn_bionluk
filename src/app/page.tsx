@@ -1,8 +1,6 @@
 import AdvertComponent from '@/components/advert/advert.component'
 import CardComponent from '@/components/card/card.component'
 import HeaderComponent from '@/components/header/header.component'
-import LatestPostSliderComponent from '@/components/latest-post/latestPostSlider.component'
-import { useAuth } from '@/hooks/useAuth'
 
 
 export const fetchGetAllPost = async () => {
@@ -12,7 +10,7 @@ export const fetchGetAllPost = async () => {
       headers: {
         "content-type": "application/json"
       },
-      cache: 'force-cache'
+      cache: 'no-cache'
     })
 
     const { ok, data } = await res.json()
