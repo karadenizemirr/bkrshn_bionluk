@@ -5,26 +5,31 @@
 @font-face {
   font-family: "poppins-regular";
   src: url(../style/fonts/Poppins/Poppins-Regular.ttf);
+  font-display: standalone;
 }
 
 @font-face {
   font-family: 'poppins-medium';
   src: url(../style/fonts/Poppins/Poppins-Medium.ttf);
+  font-display: standalone;
 }
 
 @font-face {
   font-family: 'poppins-bold';
   src: url(../style/fonts/Poppins/Poppins-Bold.ttf);
+  font-display: standalone;
 }
 
 @font-face {
   font-family: 'poppins-extrabold';
   src: url(../style/fonts/Poppins/Poppins-ExtraBold.ttf);
+  font-display: standalone;
 }
 
 @font-face {
   font-family: 'poppins-italic';
   src: url(../style/fonts/Poppins/Poppins-Italic.ttf);
+  font-display: standalone;
 }
 
 @layer components {

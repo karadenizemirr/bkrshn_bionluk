@@ -5,6 +5,7 @@ import { faFacebook, faInstagram, faTwitter, faWhatsapp } from "@fortawesome/fre
 import Link from "next/link";
 import CommmentComponent from "@/components/comment/comment.component";
 import { parseDate } from "@/lib/parser";
+import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 
 export default function PostDetailContainer({ post }: { post: any }) {
     return (
@@ -86,15 +87,26 @@ export default function PostDetailContainer({ post }: { post: any }) {
                         </div>
                         <div className="social">
                             <ul className="flex flex-1 gap-3 text-gray-400" >
-                                <li>
+                            <li>
+                                <Link href={post?.user?.social?.facebook ||""} >
                                     <FontAwesomeIcon icon={faFacebook} width={15} />
-                                </li>
-                                <li>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href={post?.user?.social?.instagram ||""}>
                                     <FontAwesomeIcon icon={faInstagram} width={15} />
-                                </li>
-                                <li>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href={post?.user?.social?.instagram ||""}>
                                     <FontAwesomeIcon icon={faTwitter} width={15} />
-                                </li>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href={post?.user?.social?.instagram ||""}>
+                                    <FontAwesomeIcon icon={faGlobe} width={15} />
+                                </Link>
+                            </li>
                             </ul>
                         </div>
                     </div>

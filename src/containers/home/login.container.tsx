@@ -40,7 +40,7 @@ export default function LoginContainer() {
                 </Formik>
             </div>
             <div className="col-span-12 lg:col-span-7 flex flex-1 justify-center items-center mt-20 lg:mt-0">
-                <Image src="/images/login.png" width={650} height={650} alt="" />
+                <Image src="https://res.cloudinary.com/dssep9ze1/image/upload/v1698958250/pywopo5zahns86upjflp.png" width={650} height={650} alt="" />
             </div>
         </div>
     )

@@ -1,8 +1,10 @@
 import CardComponent from "@/components/card/card.component";
 import { sliceText } from "@/lib/parser";
 import { faFacebook, faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export default function UserProfileContainer({ posts, user }: { posts: any, user: any }) {
@@ -22,13 +24,24 @@ export default function UserProfileContainer({ posts, user }: { posts: any, user
                         </span>
                         <ul className="flex flex-1 items-center justify-around mt-2 gap-3" >
                             <li>
-                                <FontAwesomeIcon icon={faFacebook} width={15} />
+                                <Link href={user?.social?.facebook || ""} >
+                                    <FontAwesomeIcon icon={faFacebook} width={15} />
+                                </Link>
                             </li>
                             <li>
-                                <FontAwesomeIcon icon={faInstagram} width={15} />
+                                <Link href={user?.social?.instagram ||""}>
+                                    <FontAwesomeIcon icon={faInstagram} width={15} />
+                                </Link>
                             </li>
                             <li>
-                                <FontAwesomeIcon icon={faTwitter} width={15} />
+                                <Link href={user?.social?.instagram ||""}>
+                                    <FontAwesomeIcon icon={faTwitter} width={15} />
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href={user?.social?.instagram||""}>
+                                    <FontAwesomeIcon icon={faGlobe} width={15} />
+                                </Link>
                             </li>
                         </ul>
                     </div>
