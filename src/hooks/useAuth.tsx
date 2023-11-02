@@ -20,29 +20,26 @@ const fromServer = async (role: string) => {
 
 export function useAuth(role: string) {
     try {
-        const [auth, setAuth] = React.useState<boolean>()
-
-
-        const verify = () => {
-            const session: any = useSession()
-            const _role = session.data?.user?.role
-
-            if (_role === role) {
-                setAuth(true)
-            }
-
-            setAuth(false)
+      const [auth, setAuth] = React.useState<boolean>();
+  
+      const Verify = () => {
+        const session: any = useSession();
+        const _role = session?.data?.user?.role;
+  
+        if (_role === role) {
+          return true;
         }
-
-
-        React.useEffect(() => {
-            verify()
-        }, [])
-
-        return auth
+  
+        return false;
+      };
+  
+      setAuth(Verify())
+  
+      return auth;
     } catch (err) {
-        return false
+      return false;
     }
-}
+  }
+  
 
 useAuth.fromServer = fromServer;
