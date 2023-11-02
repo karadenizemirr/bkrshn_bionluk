@@ -1,12 +1,13 @@
 "use client"
 import { Field, Form, Formik } from "formik";
 import { signIn } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 
-export default function LoginContainer(){
+export default function LoginContainer() {
     return (
-        <div className="grid grid-cols-12 h-[70vh]" >
-            <div className="col-span-5 mt-auto mb-auto">
+        <div className="grid grid-cols-12 min-h-[70vh] mt-10" >
+            <div className="col-span-12 lg:col-span-5 mt-auto mb-auto p-3 lg:p-0">
                 <div className="title text-center mb-5  ">
                     <h1 className="text-2xl" >
                         Yazar Girişi
@@ -15,10 +16,10 @@ export default function LoginContainer(){
                 <Formik initialValues={{
                     email: "",
                     password: ""
-                }} onSubmit={(values:any) => {
+                }} onSubmit={(values: any) => {
                     signIn('credentials', {
-                        email:values.email,
-                        password:values.password,
+                        email: values.email,
+                        password: values.password,
                         callbackUrl: "/"
                     })
                 }} >
@@ -32,18 +33,15 @@ export default function LoginContainer(){
                                 Giriş Yap
                             </button>
                             <p>
-                                Henüz yazar hesabınız yok mu ? <Link href="/" className="text-blue-500" >Başvuru Yap</Link>
+                                Henüz yazar hesabınız yok mu ? <Link href="/register" className="text-blue-500" >Başvuru Yap</Link>
                             </p>
-                            <Link href="/" className="text-blue-500" >
-                                Şifremi Unuttum
-                            </Link>
                         </div>
                     </Form>
                 </Formik>
             </div>
-            <div className="col-span-7">
-                text
-            </div>  
+            <div className="col-span-12 lg:col-span-7 flex flex-1 justify-center items-center mt-20 lg:mt-0">
+                <Image src="/images/login.png" width={650} height={650} alt="" />
+            </div>
         </div>
     )
 }

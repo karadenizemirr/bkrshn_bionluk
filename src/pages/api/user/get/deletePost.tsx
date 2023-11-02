@@ -6,6 +6,7 @@ export default async function deleteMyPost(req:NextApiRequest, res:NextApiRespon
         if (req.method !== 'GET') return res.status(400).send({ok: false})
         const {id} = req.query
 
+        console.log(id)
         await prisma.post.delete({
             where: {
                 id: id as string
@@ -14,6 +15,7 @@ export default async function deleteMyPost(req:NextApiRequest, res:NextApiRespon
 
         return res.status(200).send({ok:false})
     }catch(err){
+        console.log(err)
         return res.status(400).send({ok: false})
     }
 }

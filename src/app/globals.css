@@ -29,7 +29,7 @@
 
 @layer components {
   .form-element {
-    @apply bg-white w-full p-3 rounded-lg shadow-md shadow-gray-200 outline-red-200;
+    @apply w-full p-3 rounded-lg bg-white border   shadow-gray-200 outline-red-200;
   }
   .btn-primary {
     @apply bg-primary text-white p-2 px-5 rounded-full  hover:bg-gray-400 hover:shadow-none duration-200;

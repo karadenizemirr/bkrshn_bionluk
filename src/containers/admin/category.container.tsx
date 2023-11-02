@@ -1,4 +1,5 @@
 "use client"
+import { parseDate } from "@/lib/parser";
 import { Field, Form, Formik } from "formik";
 import Link from "next/link";
 import React from "react";
@@ -6,7 +7,7 @@ import { toast } from "react-toastify";
 
 export default function CategoryContainer({ categories }: { categories: any }) {
     return (
-        <div className="mt-10 mb-10 mx-auto container px-20 h-[70vh]" >
+        <div className="mt-10 mb-10 mx-auto container p-2 lg:px-20 h-[70vh]" >
             <div className="topbar text-center">
                 <h1 className="mb-10 text-2xl" >
                     Kategoriler
@@ -71,7 +72,7 @@ export default function CategoryContainer({ categories }: { categories: any }) {
                                             {item.title}
                                         </td>
                                         <td className="px-6 py-4" key={index}>
-                                            {item.createdAt}
+                                            {parseDate(item.createdAt)}
                                         </td>
                                         <td className="px-6 py-4" >
                                             <Link href="/" className="btn-primary bg-red-400 shadow-none" >

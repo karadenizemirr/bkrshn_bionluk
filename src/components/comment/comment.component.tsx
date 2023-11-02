@@ -1,4 +1,5 @@
 "use client"
+import { parseDate } from "@/lib/parser";
 import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
@@ -14,7 +15,7 @@ export default function CommmentComponent({postId, comments}:{postId:string, com
                         comments.map((item:any, index:number) => (
                             <li className="flex flex-1 flex-col gap-3  border-b text-sm p-4" key={index} >
                                 <span className="text-gray-400 italic" >    
-                                    <FontAwesomeIcon icon={faCalendarAlt} /> {item.name}{item.surname} - {item.createdAt}
+                                    <FontAwesomeIcon icon={faCalendarAlt} /> {item.name}&nbsp;{item.surname} - {parseDate(item.createdAt)}
                                 </span>
                                 <span>
                                     {item.comment}

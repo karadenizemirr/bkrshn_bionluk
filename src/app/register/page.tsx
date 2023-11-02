@@ -2,7 +2,7 @@ import RegisterContainer from "@/containers/home/register.container";
 
 export default function RegisterPage(){
     return (
-        <div>
+        <div className="container mx-auto" >
             <RegisterContainer />
         </div>
     )

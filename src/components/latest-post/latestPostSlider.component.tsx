@@ -3,7 +3,7 @@ import Link from "next/link";
 import './latestPostSlider.css'
 
 export default function LatestPostSliderComponent({ posts }: { posts: any }) {
-    const latestPost = posts.slice(0,4)
+    const latestPost = posts.slice(0,20)
     return (
         <div className="container mx-auto mt-10 w-full bg-white p-3 rounded-lg grid grid-cols-4 gap-4 overflow-hidden text-sm postCardContainer">
             {

@@ -3,7 +3,7 @@ import cloudinaryUploadSingle from "@/lib/cloudinary";
 import { Field, Form, Formik } from "formik";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { toast } from "react-toastify";
@@ -14,10 +14,13 @@ export default function PostAddContainer({ categories, data = [] }: { categories
     const [spinner, setSpinner] = React.useState(false)
 
     const [isUpdate, setIsUpdate] = React.useState(false)
-
-    if (data.lengt > 0) setIsUpdate(true)
-
     const { data: session }: { data: any } = useSession()
+
+    useEffect(() => {
+        if (data.length > 0 ) {
+            setIsUpdate(true)
+        }
+    } ,[data])
     return (
         <div className="mt-10" >
             <div className="title text-center">
@@ -36,13 +39,27 @@ export default function PostAddContainer({ categories, data = [] }: { categories
                         value={val}
                         onChange={setVal}
                         placeholder="Yazı İçeriği"
-                        className="shadow-md shadow-gray-200 outline-red-200 bg-white p-5 rounded-lg font-regular"
+                        className="shadow-md shadow-gray-200 outline-red-200 bg-gray-100 p-5 rounded-lg font-regular"
+                        modules={{
+                            toolbar:[
+                                ['bold', 'italic', 'underline', 'strike'], // Metin stilini seçme
+                                ['blockquote', 'code-block'], // Bloklar
+                                [{ header: 1 }, { header: 2 }], // Başlıklar
+                                [{ list: 'ordered' }, { list: 'bullet' }], // Liste
+                                [{ script: 'sub' }, { script: 'super' }], // Alt ve üst simgeler
+                                [{ indent: '-1' }, { indent: '+1' }], // Girinti
+                                [{ direction: 'rtl' }], // Yönlendirme
+                                [{ size: ['small', false, 'large', 'huge'] }], // Boyut
+                                ['link', 'image', 'video'], // Bağlantılar ve medya
+                                ['clean'] // Temizle
+                            ]
+                        }}
                     />
 
                     <Formik initialValues={{
                         title: data[0]?.title || "",
                         keywords: data[0]?.keywords || "",
-                        category: data[0]?.category[0]?.id || ""
+                        category: data[0]?.category.id || ""
                     }} onSubmit={async (values: any) => {
                         // Update
 
@@ -98,7 +115,7 @@ export default function PostAddContainer({ categories, data = [] }: { categories
                             <div className="row flex flex-1 gap-5" >
                                 <Field name="title" id="title" placeholder="Başlık" className="form-element" autoComplete="off" />
                                 <Field name="keywords" id="keywords" placeholder="Anahtar Kelimeler" className="form-element" autoComplete="off" />
-                                <Field name="category" component="select" className="form-element" >
+                                <Field name="category" component="select" className="form-element">
                                     <option value="">Kategori Seçiniz</option>
                                     {
                                         categories.map((item: any, index: any) => (

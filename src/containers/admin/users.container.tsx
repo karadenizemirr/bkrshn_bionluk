@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 
 export default function UsersContainer({ users }: { users: any }) {
     const [toggle, setToggle] = useState<boolean>(false)
+    const [menuIndex, setMenuIndex] = useState<any>(0)
 
     const handleOpenToggle = () => {
         setToggle(!toggle);
@@ -71,32 +72,35 @@ export default function UsersContainer({ users }: { users: any }) {
                                         </td>
                                         <td className="px-6 py-3">
                                             {
-                                                item?.role === 'user' ? ('Yazar') : ('Editör')
+                                                item?.role === 'user' ? ('Yazar') : item?.role === 'editor' ? ('Editör') : ('Admin')
                                             }
                                         </td>
                                         <td className="px-6 py-3 relative w-32">
-                                            <FontAwesomeIcon icon={faEllipsisV} className="cursor-pointer" onClick={handleOpenToggle} />
+                                            <FontAwesomeIcon icon={faEllipsisV} className="cursor-pointer" onClick={() => {
+                                                setMenuIndex(index)
+                                                handleOpenToggle()
+                                            }} />
 
                                             {
-                                                toggle && (
+                                                toggle && menuIndex === index && (
                                                     <div className="toggle absolute bg-white z-50  p-3 rounded-lg shadow-md left-0">
-                                                        <ul className="flex flex-1 flex-col gap-4" >
-                                                        <li className="hover:bg-gray-300 duration-200 p-2 rounded-lg text-green-500 cursor-pointer " 
-                                                            onClick={async () => {
-                                                                const res = await fetch(`
+                                                        <ul className="flex flex-1 flex-col gap-4">
+                                                            <li className="hover:bg-gray-300 duration-200 p-2 rounded-lg text-green-500 cursor-pointer "
+                                                                onClick={async () => {
+                                                                    const res = await fetch(`
                                                                     ${process.env.NEXT_PUBLIC_API_URL}/admin/user/get/verify?id=${item?.id}&verify=true
                                                                 `)
 
-                                                                if (res.status === 200) toast.success('Kullanıcı Engellendi')
-                                                                else toast.warning('Bir sorun meydana geldi.')
-                                                            }}
-                                                        >
+                                                                    if (res.status === 200) toast.success('Kullanıcı Onaylandı')
+                                                                    else toast.warning('Bir sorun meydana geldi.')
+                                                                }}
+                                                            >
                                                                 Onayla
                                                             </li>
-                                                            <li className="hover:bg-gray-300 duration-200 p-2 rounded-lg text-black cursor-pointer " 
+                                                            <li className="hover:bg-gray-300 duration-200 p-2 rounded-lg text-black cursor-pointer "
                                                                 onClick={async () => {
                                                                     const res = await fetch(`
-                                                                        ${process.env.NEXT_PUBLIC_API_URL}/admin/user/get/verify?id=${item?.id}&verify=false
+                                                                        ${process.env.NEXT_PUBLIC_API_URL}/admin/user/get/verify?id=${item?.id}&verify=0
                                                                     `)
 
                                                                     if (res.status === 200) toast.success('Kullanıcı Engellendi')
@@ -105,11 +109,11 @@ export default function UsersContainer({ users }: { users: any }) {
                                                             >
                                                                 Engelle
                                                             </li>
-                                                            <li className="hover:bg-gray-300 duration-200 p-2 rounded-lg text-yellow-500 cursor-pointer" 
+                                                            <li className="hover:bg-gray-300 duration-200 p-2 rounded-lg text-yellow-500 cursor-pointer"
                                                                 onClick={async () => {
                                                                     // const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/admin/user/get/role?id=" + item?.id + "&role=" )
                                                                     const res = await fetch(`
-                                                                        ${process.env.NEXT_PUBLIC_API_URL}/admin/user/get/role?id=${item?.id}&role=${item?.role === 'user'? ('editor'): ('user')}
+                                                                        ${process.env.NEXT_PUBLIC_API_URL}/admin/user/get/role?id=${item?.id}&role=${item?.role === 'user' ? ('editor') : ('user')}
                                                                     `)
                                                                     if (res.status === 200) toast.success('Rol başarıyla değiştirildi.')
                                                                     else toast.warning('Rol değiştirilemedi.')

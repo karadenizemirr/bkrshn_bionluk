@@ -13,7 +13,7 @@ export default function ProfileEditContainer({ user }: { user?: any }) {
 
     return (
         <div className="profile w-100 min-h-[90vh] flex items-center justify-center">
-            <div className="profile-card w-1/2 custom-card-style">
+            <div className="profile-card w-full lg:w-1/2 custom-card-style">
                 <div className="avatar text-center mt-10 mb-10 flex justify-center">
                     <Image src={avatar ? avatar : user?.avatar?.url} width={200} height={200} objectFit="cover" alt="Profil" className="rounded-full custom-card-style p-5" />
                 </div>
@@ -29,7 +29,12 @@ export default function ProfileEditContainer({ user }: { user?: any }) {
                         country: user?.country,
                         city: user?.city,
                         avatar: null,
-                        about: user?.about
+                        about: user?.about,
+                        instagram: user?.social?.instagram,
+                        twitter: user?.social?.twitter,
+                        facebook: user?.social?.facebook,
+                        username: user?.username,
+                        web: user?.social?.website
                     }}
                     onSubmit={async (values: any) => {
                         try {
@@ -76,6 +81,9 @@ export default function ProfileEditContainer({ user }: { user?: any }) {
                                     className="form-element"
                                     autoComplete="off"
                                 />
+                            </div>
+                            <div className="row">
+                                <Field name="username" placeholder="Takma Ad" className="form-element" autoComplete="off" />
                             </div>
                             <div className="row flex flex-1 gap-5">
                                 <Field
@@ -163,6 +171,14 @@ export default function ProfileEditContainer({ user }: { user?: any }) {
                                         </textarea>
                                     )}
                                 </Field>
+                            </div>
+                            <div className="row flex flex-1 gap-5">
+                                <Field name="facebook" placeholder="Facebook" className="form-element" />
+                                <Field name="instagram" placeholder="Instagram" className="form-element" />
+                                <Field name="twitter" placeholder="Twitter" className="form-element" />
+                            </div>
+                            <div className="row">
+                            <Field name="web" placeholder="Web Sitesi" className="form-element" />
                             </div>
                             <div className="row text-center">
                                 <button className="btn-secondary" type="submit">

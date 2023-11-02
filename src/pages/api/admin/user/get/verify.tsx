@@ -7,12 +7,18 @@ export default async function VerifyUserApi(req:NextApiRequest, res:NextApiRespo
         if (req.method !== 'GET') return res.status(400).send({ok: false})
         const {id, verify} = req.query
 
+        let _verify;
+
+        if (verify === '0') _verify = false
+        else _verify = true
+
+
         await prisma.user.update({
             where: {
                 id: id as string
             },
             data: {
-                isActive: Boolean(verify)
+                isActive: _verify
             }
         })
 

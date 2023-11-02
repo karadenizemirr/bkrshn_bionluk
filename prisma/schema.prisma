@@ -24,10 +24,23 @@ model User {
   country   String?
   city      String?
   avatar    Avatar?
-  isActive Boolean @default(false)
+  username  String?
+  isActive  Boolean   @default(true)
   post      Post[]
   role      String    @default("user")
   createdAt DateTime  @default(now())
+  social Social? @relation(fields: [socialId], references: [id])
+  socialId String?
+}
+
+model Social {
+  id        String   @id @default(uuid())
+  facebook  String?
+  instagram String?
+  twitter   String?
+  website   String?
+  createdAt DateTime @default(now())
+  user User[]
 }
 
 model Avatar {
@@ -52,12 +65,15 @@ model Post {
   title      String
   keywords   String
   content    String
+  weekly     Boolean    @default(false)
+  popular    Boolean    @default(false)
   createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @default(now())
   image      Image[]
-  user       User       @relation(fields: [userId], references: [id])
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     String
-  isStatus   Boolean    @default(false)
-  category   Category?  @relation(fields: [categoryId], references: [id])
+  isStatus   Boolean    @default(true)
+  category   Category?  @relation(fields: [categoryId], references: [id] ,onDelete: Cascade)
   categoryId String?
   comment    Commment[]
 }
@@ -67,7 +83,7 @@ model Image {
   url       String
   alt       String?
   createdAt DateTime @default(now())
-  post      Post?    @relation(fields: [postId], references: [id])
+  post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    String?
 }
 
@@ -78,7 +94,7 @@ model Commment {
   comment   String
   rate      Int
   createdAt DateTime @default(now())
-  post      Post?    @relation(fields: [postId], references: [id])
+  post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    String?
   isStatus  Boolean  @default(false)
 }

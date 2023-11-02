@@ -18,11 +18,8 @@ export const fetchGetPost = async (id:string) => {
 
 export default async function PostDetail({params}: {params: {id:string}}){
     const post = await fetchGetPost(params?.id)
-
-    console.log(post)
-
     return (
-        <div className="mx-auto container px-20 mt-10" >
+        <div className="mx-auto container p-2 lg:px-20 mt-10" >
             <PostDetailContainer post={post} />
         </div>
     )

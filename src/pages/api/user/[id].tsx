@@ -12,7 +12,8 @@ export default async function GET(req: NextApiRequest, res: NextApiResponse) {
                     id: id as string
                 },
                 include: {
-                    avatar: true
+                    avatar: true,
+                    social: true
                 }
             })
 
@@ -38,11 +39,20 @@ export default async function GET(req: NextApiRequest, res: NextApiResponse) {
                     country: data.country,
                     city: data.city,
                     about: data.about,
+                    username: data.username,
                     avatar: {
                         create: {
                             url: data.avatar,
                             alt: slugify(data.name + data.surname, {replacement: '-', lower: true}),
                             slug: slugify(data.name + data.surname, {replacement: '-', lower: true})
+                        }
+                    },
+                    social:{
+                        create:{
+                            instagram: data.instagram,
+                            twitter: data.twitter,
+                            facebook: data.facebook,
+                            website: data.web
                         }
                     }
                 }

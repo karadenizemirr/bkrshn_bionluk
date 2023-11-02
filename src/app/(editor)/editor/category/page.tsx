@@ -1,4 +1,6 @@
 import CategoryContainer from "@/containers/admin/category.container";
+import { useAuth } from "@/hooks/useAuth";
+import { redirect } from "next/navigation";
 import React from "react";
 
 export const getAllCategory = async () => {
@@ -22,6 +24,10 @@ export const getAllCategory = async () => {
 
 export default async function CategoryPage() {
     const categories = await getAllCategory()
+    const editorControl = await useAuth.fromServer('editor')
+    const adminControl = await useAuth.fromServer('admin')
+
+    if (!adminControl || !editorControl) return redirect('/')
     return (
         <>
             <CategoryContainer categories={categories} />

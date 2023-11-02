@@ -1,5 +1,7 @@
 import { getAllCategory } from "@/app/(editor)/editor/category/page";
 import PostAddContainer from "@/containers/user/postAdd.container";
+import { useAuth } from "@/hooks/useAuth";
+import { redirect } from "next/navigation";
 import React from "react";
 
 const _getPost = async (id:string) => {
@@ -26,6 +28,10 @@ export default async function PostUpdate({params}:{params: {id: string}}){
     const {id} = params
     const post = await _getPost(id)
     const categories = await getAllCategory()
+
+    const userControl = await useAuth.fromServer('user')
+
+    if (!userControl) return redirect('/')
     return (
         <div>
             <PostAddContainer categories={categories} data={post} />

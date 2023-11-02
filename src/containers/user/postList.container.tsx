@@ -15,7 +15,7 @@ export default function PostListContainer({ posts }: { posts?: any }) {
             <div className="table w-full">
                 <div className="relative overflow-x-auto shadow-md shadow-gray-200 rounded-lg">
                     <table className="w-full text-sm text-center text-gray-500 ">
-                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
+                        <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                             <tr>
                             <th scope="col" className="px-6 py-3">
                                     #
@@ -42,8 +42,8 @@ export default function PostListContainer({ posts }: { posts?: any }) {
                             {
                                 posts.map((item: any, index: number) => (
                                     <tr className="bg-white border-b " key={index}>
-                                        <td className="px-6 py-4" key={index}>
-                                            <Image src={item?.image[0]?.url} width={50} height={50} alt={item?.image[0]?.alt} className="rounded-full" />
+                                        <td className="px-6 py-4 w-5 h-5 relative" key={index}>
+                                            <Image src={item?.image[0]?.url} layout="fill" alt={item?.image[0]?.alt} className="rounded-full" />
                                         </td>
                                         <td className="px-6 py-4" key={index}>
                                             {item.title}

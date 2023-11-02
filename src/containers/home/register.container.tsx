@@ -8,11 +8,11 @@ import { toast } from "react-toastify";
 
 export default function RegisterContainer() {
     return (
-        <div className="grid grid-cols-12 h-[70vh] mt-10" >
-            <div className="register-description col-span-7 flex flex-1 justify-center items-center">
-                <Image src="/images/registerBanner.png" width={850} height={850} className="object-cover" alt="" />
+        <div className="grid grid-cols-12 min-h-[70vh] mt-10" >
+            <div className="register-description col-span-12 lg:col-span-7 flex flex-1 justify-center items-center">
+                <Image src="/images/registerBanner.png" width={550} height={550} className="object-cover" alt="" />
             </div>
-            <div className="register-form col-span-5 mt-auto mb-auto">
+            <div className="register-form col-span-12 lg:col-span-5  mt-10 lg:mt-auto mb-auto p-3 lg:p-0">
                 <div className="title text-center mb-10">
                     <h1 className="text-2xl" >
                         Hemen Yazar Ol
@@ -45,9 +45,11 @@ export default function RegisterContainer() {
 
                     if (ok){
                         toast.success('Yazar isteği başarı ile oluşturuldu.')
+                    }else{
+                        toast.error('Yazar isteği oluşturulurken bir hata oluştu.')
                     }
 
-                    toast.error('Yazar isteği oluşturulurken bir hata oluştu.')
+                    
                     resetForm()
                 }} >
                     <Form className="flex flex-1 flex-col gap-5" >

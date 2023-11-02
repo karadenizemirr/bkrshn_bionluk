@@ -5,7 +5,7 @@ import React from "react";
 
 const fetchGetUser = async (id:string) => {
     try{
-        const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/home/getUser?id=' + id)
+        const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/home/getUser?id=' + id, {cache:'default'})
 
         const {ok, data} = await res.json()
 
