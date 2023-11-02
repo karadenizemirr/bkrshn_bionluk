@@ -2,6 +2,11 @@ import { getUserPost } from "@/app/(user)/user/post/list/page";
 import UserProfileContainer from "@/containers/home/profle.container";
 import React from "react";
 
+import { Metadata } from 'next'
+
+export const metadata:Metadata = {
+  title:'Profil'
+}
 
 const fetchGetUser = async (id:string) => {
     try{

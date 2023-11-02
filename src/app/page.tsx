@@ -1,6 +1,11 @@
 import AdvertComponent from '@/components/advert/advert.component'
 import CardComponent from '@/components/card/card.component'
 import HeaderComponent from '@/components/header/header.component'
+import { Metadata } from 'next'
+
+export const metadata:Metadata = {
+  title:'Anasayfa'
+}
 
 
 export const fetchGetAllPost = async () => {

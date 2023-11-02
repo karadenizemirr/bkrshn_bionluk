@@ -7,6 +7,7 @@ import { getServerSession } from 'next-auth';
 import SessionProvider from '@/components/provider/session.provider';
 import FooterComponent from '@/components/footer/footer.component';
 import { fetchGetAllPost } from './page';
+import Head from 'next/head';
 
 // export const fetchGetAllCategory = async () => {
 //   try{
@@ -30,15 +31,25 @@ export default async function RootLayout({
   // const categories = await fetchGetAllCategory()
   const posts = await fetchGetAllPost()
 
-  const last10post = posts.slice(0,10)
+  const last10post = posts.slice(0, 10)
   return (
     <html lang="en">
       <body className='bg-gray-100 font-medium ' >
+        <Head>
+          <meta name="description" content="Sayfa açıklaması" />
+          <meta name="keywords" content="anahtar kelimeler, sayfa" />
+          <meta name="author" content="Yazar Adı" />
+          <link rel="canonical" href="https://www.example.com" />
+          <meta property="og:title" content="Open Graph Başlık" />
+          <meta property="og:description" content="Open Graph Açıklaması" />
+          <meta property="og:image" content="https://www.example.com/image.jpg" />
+          <meta property="og:url" content="https://www.example.com" />
+        </Head>
         <SessionProvider session={session}>
           <ToastContainer />
-          <NavbarComponent posts={last10post}  />
-            {children}
-            <FooterComponent />
+          <NavbarComponent posts={last10post} />
+          {children}
+          <FooterComponent />
         </SessionProvider>
       </body>
     </html>
