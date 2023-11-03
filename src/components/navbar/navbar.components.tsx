@@ -1,10 +1,13 @@
 "use client"
 import { toDate } from "@/lib/parser";
-import { faBars, faCaretDown, faClose, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faCaretDown, faClose, faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import slugify from "slugify";
+
 
 export default function NavbarComponent({ categories, posts }: { categories?: any, posts?: any }) {
 
@@ -13,6 +16,18 @@ export default function NavbarComponent({ categories, posts }: { categories?: an
     const [categoryOpen, setCategoryOpen] = useState<boolean>(false)
     const [postIndex, setPostIndex] = useState(0)
     const [mobileToggle, setMobileToggle] = useState(false)
+    const [searchModal, setSearchModal] = useState(false)
+
+    const [searchText, setSearchText] = useState("")
+    const router = useRouter()
+    const handleSearch = () => {
+        router.push('/search?query=' + slugify(searchText, { lower: true, replacement: '-' }))
+        setSearchModal(false)
+    }
+
+    const handleInputChange = (e: any) => {
+        setSearchText(e.target.value)
+    }
 
     useEffect(() => {
         let duration = posts.length
@@ -42,11 +57,18 @@ export default function NavbarComponent({ categories, posts }: { categories?: an
         <>
             <div className="mobileMneuToggler flex flex-1 items-center justify-between p-3 lg:hidden">
                 <div className="logo">
-                    <h1 className="text-2xl font-bold" >
+                    <Link href="/" className="text-2xl font-bold" >
                         bkrshn
-                    </h1>
+                    </Link>
                 </div>
-                <div className="menu">
+                <div className="menu flex gap-5 items-center">
+                    {
+                        session?.user && (
+                            <Link href="/user/post/add" className="btn-primary text-sm" >
+                                Yazı Ekle
+                            </Link>
+                        )
+                    }
                     <FontAwesomeIcon icon={faBars} className="text-xl cursor-pointer" onClick={handleMobileToggle} />
                 </div>
             </div>
@@ -63,13 +85,19 @@ export default function NavbarComponent({ categories, posts }: { categories?: an
                         <div className="menu flex flex-1 items-center justify-center mt-10 m-10">
                             <ul className="flex flex-col gap-4 items-center" >
                                 <li className="p-2" >
-                                    Anasayfa
+                                    <Link href="/" onClick={handleMobileToggle} >
+                                        Anasayfa
+                                    </Link>
                                 </li>
                                 <li className="p-2" >
-                                    Hakkımızda
+                                    <Link href="/about" onClick={handleMobileToggle} >
+                                        Hakkımızda
+                                    </Link>
                                 </li>
                                 <li className="p-2" >
-                                    İletişim
+                                    <Link href="/contact" onClick={handleMobileToggle} >
+                                        İletişim
+                                    </Link>
                                 </li>
                             </ul>
                         </div>
@@ -78,18 +106,18 @@ export default function NavbarComponent({ categories, posts }: { categories?: an
                                 session?.user?.role === 'user' ? (
                                     <>
                                         <ul className="flex flex-1 flex-col gap-4 items-center mt-10" >
-                                        <li className="p-2 hover:bg-gray-300 duration-200">
-                                                <Link href="/user/post/add" >
+                                            <li className="p-2 hover:bg-gray-300 duration-200">
+                                                <Link href="/user/post/add" onClick={handleMobileToggle} >
                                                     Yazı Ekle
                                                 </Link>
                                             </li>
                                             <li className="p-2 hover:bg-gray-300 duration-200">
-                                                <Link href="/user/post/list" >
+                                                <Link href="/user/post/list" onClick={handleMobileToggle} >
                                                     Yazılarım
                                                 </Link>
                                             </li>
                                             <li className="p-2 hover:bg-gray-300 duration-200" >
-                                                <Link href={`/user/profile/${session?.user?.id}`} >
+                                                <Link href={`/user/profile/${session?.user?.id}`} onClick={handleMobileToggle} >
                                                     Profilim
                                                 </Link>
                                             </li>
@@ -104,22 +132,22 @@ export default function NavbarComponent({ categories, posts }: { categories?: an
                                     <>
                                         <ul className="flex flex-1 flex-col gap-4 items-center mt-10" >
                                             <li className="p-2 hover:bg-gray-300 duration-200" >
-                                                <Link href="/editor/posts" >
+                                                <Link href="/editor/posts" onClick={handleMobileToggle} >
                                                     Yazılar
                                                 </Link>
                                             </li>
                                             <li className="p-2 hover:bg-gray-300 duration-200" >
-                                                <Link href="/editor/comments" >
+                                                <Link href="/editor/comments" onClick={handleMobileToggle} >
                                                     Yorumlar
                                                 </Link>
                                             </li>
                                             <li className="p-2 hover:bg-gray-300 duration-200" >
-                                                <Link href="/editor/category" >
+                                                <Link href="/editor/category" onClick={handleMobileToggle} >
                                                     Kategoriler
                                                 </Link>
                                             </li>
                                             <li className="p-2 hover:bg-gray-300 duration-200" >
-                                                <Link href="#" onClick={() => { signOut() }}>
+                                                <Link href="#" onClick={() => { signOut() }} >
                                                     Çıkış Yap
                                                 </Link>
                                             </li>
@@ -129,22 +157,22 @@ export default function NavbarComponent({ categories, posts }: { categories?: an
                                     <>
                                         <ul className="flex flex-1 flex-col gap-4 items-center mt-10" >
                                             <li className="p-2 hover:bg-gray-300 duration-200" >
-                                                <Link href="/admin/user" >
+                                                <Link href="/admin/user" onClick={handleMobileToggle} >
                                                     Kullanıcılar
                                                 </Link>
                                             </li>
                                             <li className="p-2 hover:bg-gray-300 duration-200" >
-                                                <Link href="/editor/posts" >
+                                                <Link href="/editor/posts" onClick={handleMobileToggle} >
                                                     Yazılar
                                                 </Link>
                                             </li>
                                             <li className="p-2 hover:bg-gray-300 duration-200" >
-                                                <Link href="/editor/comments" >
+                                                <Link href="/editor/comments" onClick={handleMobileToggle} >
                                                     Yorumlar
                                                 </Link>
                                             </li>
                                             <li className="p-2 hover:bg-gray-300 duration-200" >
-                                                <Link href="/editor/category" >
+                                                <Link href="/editor/category" onClick={handleMobileToggle} >
                                                     Kategoriler
                                                 </Link>
                                             </li>
@@ -165,9 +193,9 @@ export default function NavbarComponent({ categories, posts }: { categories?: an
                 <div className="navbar-container bg-white p-5 hidden lg:block">
                     <nav className="grid grid-cols-12 container mx-auto items-center px-20">
                         <div className="logo col-span-2">
-                            <h1 className="text-3xl font-bold" >
-                                brkshn
-                            </h1>
+                            <Link href="/" className="text-2xl font-bold" >
+                                bkrshn
+                            </Link>
                         </div>
                         <div className="menu col-span-6">
                             <ul className="flex flex-1 gap-10" >
@@ -199,10 +227,14 @@ export default function NavbarComponent({ categories, posts }: { categories?: an
                                     }
                                 </li> */}
                                 <li>
-                                    Hakkımızda
+                                    <Link href="/about" >
+                                        Hakkımızda
+                                    </Link>
                                 </li>
                                 <li>
-                                    İletişim
+                                    <Link href="/contact" >
+                                        İletişim
+                                    </Link>
                                 </li>
                             </ul>
                         </div>
@@ -319,6 +351,7 @@ export default function NavbarComponent({ categories, posts }: { categories?: an
                                             <Link href="/login" className="btn-primary" >
                                                 Giriş Yap
                                             </Link>
+                                            <FontAwesomeIcon icon={faSearch} className="searchButton cursor-pointer" onClick={() => { setSearchModal(true) }} />
                                         </>
                                     )
                                 )
@@ -327,29 +360,48 @@ export default function NavbarComponent({ categories, posts }: { categories?: an
                     </nav>
                 </div>
                 <div className="endPost container mx-auto lg:px-20 mt-5">
-                    <div className="endPost bg-yellow-300 px-5 rounded-lg w-full h-[14vh] lg:h-auto">
+                    <div className="endPost bg-white px-5 rounded-lg w-full h-[14vh] lg:h-auto shadow-md">
                         <div className="latest flex flex-col lg:flex-row items-center gap-2 justify-between md:flex-1">
                             <div className="post">
-                               <span className="hidden lg:visible " ><FontAwesomeIcon icon={faPlus} /> En Son:</span>
-                                <Link href={'/profile/' + posts[postIndex]?.user?.id} >
-                                    <span className=" text-sm italic ml2" >
-                                        {posts[postIndex]?.user?.name}&nbsp;{posts[postIndex]?.user?.surname}
-                                    </span>
-
-                                </Link>
+                                <span className="text-sm italic">
+                                    {toDate(posts[postIndex]?.createdAt)}
+                                </span>
                             </div>
-                            <span className="postname ml-2">
+                            <span className="postname ml-2 text-primary text-lg lg:text-sm">
                                 <Link href={'/post/detail/' + posts[postIndex]?.id}>
                                     {posts[postIndex]?.title}
                                 </Link>
                             </span>
-                            <span className="text-sm italic">
-                                {toDate(posts[postIndex]?.createdAt)}
-                            </span>
+                            <Link href={'/profile/' + posts[postIndex]?.user?.id} >
+                                <span className=" text-sm italic ml2" >
+                                    {posts[postIndex]?.user?.name}&nbsp;{posts[postIndex]?.user?.surname}
+                                </span>
+                            </Link>
                         </div>
                     </div>
                 </div>
             </div>
+
+            {
+                searchModal && (
+                    <div className="searchContainer absolute top-0 w-full bg-white h-[100vh] z-50 animate__animated animate__backInDown">
+                        <div className="topbar absolute right-10 top-10">
+                            <span>
+                                <FontAwesomeIcon icon={faClose} onClick={() => { setSearchModal(false) }} className="cursor-pointer" />
+                            </span>
+                        </div>
+                        <div className="content flex flex-1 flex-col items-center justify-center h-full mb-10 gap-10">
+                            <h1 className="text-4xl" >
+                                Aklınızda Kalmasın Arayın Bulun..
+                            </h1>
+                            <input type="text" className="border p-3 w-1/2" placeholder="Arama Yap" onChange={handleInputChange} />
+                            <button className="bg-black text-white p-3 rounded-lg" onClick={handleSearch} >
+                                Arama Yap
+                            </button>
+                        </div>
+                    </div>
+                )
+            }
         </>
     )
 }

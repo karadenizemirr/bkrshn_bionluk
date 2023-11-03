@@ -25,7 +25,9 @@ export default async function slugPostApi(req:NextApiRequest, res:NextApiRespons
                 title: true,
                 content: true,
                 image: true,
-                createdAt: true
+                createdAt: true,
+                category: true,
+                id: true,
             }
         })
 
