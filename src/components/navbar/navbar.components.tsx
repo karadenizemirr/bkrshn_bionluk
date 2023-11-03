@@ -77,7 +77,7 @@ export default function NavbarComponent({ categories, posts }: { categories?: an
                 mobileToggle && (
                     <div className="mobileMenu absolute top-0 w-full h-[100vh] bg-primary z-50 text-white p-5">
                         <div className="topbar flex flex-1 justify-between items-center">
-                            <Link href="/login" className="btn-secondary text-black py-2 text-sm">
+                            <Link href="/login" className="btn-secondary text-black py-2 text-sm" onClick={handleMobileToggle}>
                                 Giriş Yap
                             </Link>
                             <FontAwesomeIcon icon={faClose} onClick={handleMobileToggle} />
