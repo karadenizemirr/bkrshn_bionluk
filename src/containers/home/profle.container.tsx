@@ -11,7 +11,7 @@ export default function UserProfileContainer({ posts, user }: { posts: any, user
     return (
         <div className="mx-auto container p-2 lg:px-20 my-10 min-h-[60vh]" >
 
-            <div className="userCard bg-white p-4 grid grid-cols-12 items-center gap-y-10">
+            <div className="userCard bg-white p-4 grid grid-cols-12 items-center gap-y-10 border rounded-lg">
             
                 <div className="col-span-12 lg:col-span-1 flex flex-1 items-center gap-5 w-24 h-24 relative mx-auto ">
                     <Image src={user?.avatar?.url} layout="fill" alt="" className="rounded-full" />
@@ -54,14 +54,8 @@ export default function UserProfileContainer({ posts, user }: { posts: any, user
             </div>
             {/* User Post */}
 
-            <div className='grid grid-cols-12 gap-5' >
-                {
-                    posts?.map((post: any, index: number) => (
-                        post.isStatus ? (
-                            <CardComponent item={post} key={index} />
-                        ) : ""
-                    ))
-                }
+            <div >
+                <CardComponent posts={posts} />
             </div>
 
 

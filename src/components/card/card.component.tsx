@@ -3,41 +3,36 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-export default function CardComponent({ item }: { item: any }) {
+export default function CardComponent({ posts }: { posts: any }) {
     return (
-        <div className="mt-10 bg-white col-span-12 lg:col-span-6  p-2 text-sm rounded-lg h-52 flex items-center w-full">
-            <div className="card grid grid-cols-12 h-full items-center gap-5">
-
-                <div className="image col-span-6 w-48 h-full relative rounded-lg">
-                    <Image src={item?.image[0]?.url} layout="fill" alt="" objectFit="cover" className="p-3 rounded-lg" />
-                </div>
-
-                <div className="content w-full col-span-6 flex flex-1 flex-col gap-3 items-start">
-                    <div className="category">
-                        <Link href={"/post/" + item?.category?.slug} >
-                            <span className="text-primary italic" >
-                                {item?.category?.title}
-                            </span>
-                        </Link>
-                    </div>
-
-                    <div className="title">
-                        <Link href={`/post/detail/${item?.id}`} className="font-bold hover:text-gray-400 duration-200" >
-                            {sliceText(item?.title, 20)}
-                        </Link>
-                    </div>
-
-                    <div className="footer flex flex-1 flex-col justify-between text-gray-400 italic">
-                        <div className="author">
-                            <Link href={"/profile/" + item?.user?.id} className="hover:text-black duration-200">
-                                {item?.user?.name}&nbsp;{item?.user?.surname}
-                            </Link>
+        <div className="mt-10 " >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <div className="columns-2 md:columns-3 lg:columns-4">
+                {
+                    posts.map((item: any, index: number) => (
+                        <div className="relative mb-8 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-30 shadow-md rounded-lg hover:-rotate-6 transform transition duration-200" key={index}>
+                            <img className="w-full rounded-lg min-h-[32vh] object-cover" src={item.image.slice(-1)[0].url} />
+                            <div className="test__body absolute inset-0 p-5 text-white flex flex-col">
+                                <div className="relative">
+                                    <Link href={`/post/detail/${item?.id}`} className="test__title text-xl lg:text-2xl font-bold mb-3 uppercase hover:text-gray-300 duration-200">
+                                        {item?.title}
+                                    </Link>
+                                    <p className="hover:text-gray-200 duration-200" > 
+                                        <Link className="test__author font-sm font-light" href={`/profile/${item?.user?.id}`} >
+                                            {item?.user?.name}
+                                        </Link>
+                                    </p>
+                                    <p className="text-sm text-gray-200 italic" >{parseDate(item?.createdAt)}</p>
+                                </div>
+                                <div className="mt-auto">
+                                    <Link href={`/post/${item?.category?.slug}`} className="hover:bg-yellow-300 duration-200" >
+                                        <span className="test__tag bg-white bg-opacity-60 py-1 px-3 rounded-md text-black text-sm">{item?.category?.title}</span>
+                                    </Link>
+                                </div>
+                            </div>
                         </div>
-                        <div className="date">
-                            {parseDate(item?.createdAt)}
-                        </div>
-                    </div>
-                </div>
+                    ))
+                }
             </div>
         </div>
     )

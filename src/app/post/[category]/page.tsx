@@ -26,12 +26,8 @@ const fetchGetPostWithCategory = async (params:string) => {
 export default async function CategoryPost({params}: {params: {category:string}}){
     const posts = await fetchGetPostWithCategory(params.category)
     return (
-        <div className="mx-auto container lg:px-20 grid grid-cols-12 gap-5" >
-            {
-                posts.map((item:any, index:number) => (
-                    <CardComponent item={item} key={index} />
-                ))
-            }
+        <div className="px-5" >
+            <CardComponent posts={posts} />
         </div>
     )
 }

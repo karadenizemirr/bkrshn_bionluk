@@ -31,28 +31,15 @@ export const fetchGetAllPost = async () => {
 }
 export default async function Home() {
   const posts = await fetchGetAllPost()
-  const postsFilter = posts.slice(0, 10)
   const categories = await getAllCategory()
   return (
     <div>
-      <div className="mx-auto container lg:px-20">
+      <div className="px-5">
         {/* <LatestPostSliderComponent posts={posts} /> */}
-        <HeaderComponent post={posts} />
+        <CardComponent posts={posts} />
         <CategoryComponent categories={categories} />
       </div>
       <AdvertComponent />
-      <div className="title mx-auto container lg:px-20 mb-10">
-        <h1 className='text-4xl text-center' >
-          Son Eklenen Yazılar
-        </h1>
-        <div className='grid grid-cols-12 gap-5' >
-          {
-            postsFilter.map((item: any, index: number) => (
-              <CardComponent item={item} key={index} />
-            ))
-          }
-        </div>
-      </div>
     </div>
   )
 }

@@ -1,12 +1,17 @@
 "use client"
-import { toDate } from "@/lib/parser";
+import { sliceText, toDate } from "@/lib/parser";
 import { faBars, faCaretDown, faClose, faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import slugify from "slugify";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 
 
 export default function NavbarComponent({ categories, posts }: { categories?: any, posts?: any }) {
@@ -21,7 +26,8 @@ export default function NavbarComponent({ categories, posts }: { categories?: an
     const [searchText, setSearchText] = useState("")
     const router = useRouter()
     const handleSearch = () => {
-        router.push('/search?query=' + slugify(searchText, { lower: true, replacement: '-' }))
+        const routerUrl: any = `/search?queryy=${slugify(searchText, { lower: true, replacement: '-' })}`
+        router.push(routerUrl)
         setSearchModal(false)
     }
 
@@ -52,6 +58,32 @@ export default function NavbarComponent({ categories, posts }: { categories?: an
     const handleMobileToggle = () => {
         setMobileToggle(!mobileToggle)
     }
+
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 1000,
+        slidesToShow: 8,
+        slidesToScroll: 8,
+        autoplay: true,
+        autoplaySpeed: 4000,
+        responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 5,
+                    slidesToScroll: 5,
+                },
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                },
+            },
+        ],
+    };
 
     return (
         <>
@@ -189,9 +221,9 @@ export default function NavbarComponent({ categories, posts }: { categories?: an
                     </div>
                 )
             }
-            <div className="w-full" >
-                <div className="navbar-container bg-white p-5 hidden lg:block">
-                    <nav className="grid grid-cols-12 container mx-auto items-center px-20">
+            <div className="w-full overflow-clip" >
+                <div className="navbar-container bg-white p-5 hidden lg:block border-b">
+                    <nav className="grid grid-cols-12 items-center px-5">
                         <div className="logo col-span-2">
                             <Link href="/" className="text-2xl font-bold" >
                                 bkrshn
@@ -242,6 +274,7 @@ export default function NavbarComponent({ categories, posts }: { categories?: an
                             {
                                 session?.user?.role === 'user' ? (
                                     <div className="relative" onMouseEnter={handleToggleMenu} onMouseLeave={handleToggleMenu}  >
+                                        <FontAwesomeIcon icon={faSearch} className="searchButton cursor-pointer mr-5" onClick={() => { setSearchModal(true) }} />
                                         <Link href="/user/post/add" className="btn-primary" >
                                             Yazı Ekle
                                         </Link>
@@ -302,6 +335,7 @@ export default function NavbarComponent({ categories, posts }: { categories?: an
                                                 </div>
                                             )
                                         }
+                                        <FontAwesomeIcon icon={faSearch} className="searchButton cursor-pointer" onClick={() => { setSearchModal(true) }} />
                                     </div>
                                 ) : session?.user?.role === 'admin' ? (
                                     <div className="relative" onMouseEnter={handleToggleMenu} onMouseLeave={handleToggleMenu} >
@@ -341,6 +375,7 @@ export default function NavbarComponent({ categories, posts }: { categories?: an
                                                 </div>
                                             )
                                         }
+                                        <FontAwesomeIcon icon={faSearch} className="searchButton cursor-pointer" onClick={() => { setSearchModal(true) }} />
                                     </div>
                                 ) : (
                                     (
@@ -359,8 +394,8 @@ export default function NavbarComponent({ categories, posts }: { categories?: an
                         </div>
                     </nav>
                 </div>
-                <div className="endPost container mx-auto lg:px-20 mt-5">
-                    <div className="endPost bg-white px-5 rounded-lg w-full h-[14vh] lg:h-auto shadow-md">
+                <div className="endPost px-5 border-b py-5">
+                    {/* <div className="endPost bg-white px-5 rounded-lg w-full h-[14vh] lg:h-auto  ">
                         <div className="latest flex flex-col lg:flex-row items-center gap-2 justify-between md:flex-1">
                             <div className="post">
                                 <span className="text-sm italic">
@@ -378,6 +413,25 @@ export default function NavbarComponent({ categories, posts }: { categories?: an
                                 </span>
                             </Link>
                         </div>
+                    </div> */}
+                    <div className="w-full ">
+                        <p className="text-xl leading-none text-gray-800 py-4 px-5">En Yeniler..</p>
+                        <Slider
+                            {...settings}
+                        >
+                            {posts.map((item: any, index: number) => (
+                                <div className="flex flex-col items-center justify-center space-y-1 " key={index}>
+                                    <div className="hover:bg-gray-200 duration-200 p-1 rounded-full text-center">
+                                        <Link className="bg-white block rounded-full p-1 hover:-rotate-6 transform transition" href={`/post/detail/${item?.id}`}>
+                                            <img className="h-14 w-14 rounded-full" src={item?.image[0]?.url} alt="cute kitty" />
+                                        </Link>
+                                    </div>
+                                    <Link href={`/post/detail/${item?.id}`} className="text-center">
+                                        {sliceText(item?.title, 10)}
+                                    </Link>
+                                </div>
+                            ))}
+                        </Slider>
                     </div>
                 </div>
             </div>

@@ -31,10 +31,9 @@ export default async function RootLayout({
   // const categories = await fetchGetAllCategory()
   const posts = await fetchGetAllPost()
 
-  const last10post = posts.slice(0, 10)
   return (
     <html lang="en">
-      <body className='bg-gray-100 font-medium ' >
+      <body className='bg-white font-medium ' >
         <Head>
           <meta name="description" content="Sayfa açıklaması" />
           <meta name="keywords" content="anahtar kelimeler, sayfa" />
@@ -47,7 +46,7 @@ export default async function RootLayout({
         </Head>
         <SessionProvider session={session}>
           <ToastContainer />
-          <NavbarComponent posts={last10post} />
+          <NavbarComponent posts={posts} />
           {children}
           <FooterComponent />
         </SessionProvider>
