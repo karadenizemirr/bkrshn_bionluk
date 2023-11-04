@@ -15,7 +15,7 @@ export default function CardComponent({ posts }: { posts: any }) {
                             <div className="test__body absolute inset-0 p-5 text-white flex flex-col">
                                 <div className="relative">
                                     <Link href={`/post/detail/${item?.id}`} className="test__title text-xl lg:text-2xl font-bold mb-3 uppercase hover:text-gray-300 duration-200">
-                                        {item?.title}
+                                        {sliceText(item?.title, 25)}
                                     </Link>
                                     <p className="hover:text-gray-200 duration-200" > 
                                         <Link className="test__author font-sm font-light" href={`/profile/${item?.user?.id}`} >
