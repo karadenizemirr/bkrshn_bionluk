@@ -1,9 +1,8 @@
 "use client"
-import { sliceText, toDate } from "@/lib/parser";
-import { faBars, faCaretDown, faClose, faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { sliceText } from "@/lib/parser";
+import { faBars, faClose, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { signOut, useSession } from "next-auth/react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -14,9 +13,8 @@ import "slick-carousel/slick/slick-theme.css";
 
 
 
-export default function NavbarComponent({ categories, posts }: { categories?: any, posts?: any }) {
+export default function NavbarComponent({ categories, posts, session }: { categories?: any, posts?: any, session?:any }) {
 
-    const { data: session }: { data: any } = useSession();
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [categoryOpen, setCategoryOpen] = useState<boolean>(false)
     const [postIndex, setPostIndex] = useState(0)
@@ -44,6 +42,7 @@ export default function NavbarComponent({ categories, posts }: { categories?: an
                 setPostIndex(0)
             }
         }, 3000)
+
     }, [postIndex])
 
 
@@ -420,8 +419,8 @@ export default function NavbarComponent({ categories, posts }: { categories?: an
                             {...settings}
                         >
                             {posts.map((item: any, index: number) => (
-                                <div className="flex flex-col items-center justify-center space-y-1 " key={index}>
-                                    <div className="hover:bg-gray-200 duration-200 p-1 rounded-full text-center">
+                                <div className="flex flex-col items-center justify-center space-y-1 relative" key={index}>
+                                    <div className=" rounded-full text-center">
                                         <Link className="bg-white block rounded-full p-1 hover:-rotate-6 transform transition" href={`/post/detail/${item?.id}`}>
                                             <img className="h-14 w-14 rounded-full" src={item?.image[0]?.url} alt="cute kitty" />
                                         </Link>

@@ -8,6 +8,7 @@ import SessionProvider from '@/components/provider/session.provider';
 import FooterComponent from '@/components/footer/footer.component';
 import { fetchGetAllPost } from './page';
 import Head from 'next/head';
+import { authOption } from '@/pages/api/auth/[...nextauth]';
 
 // export const fetchGetAllCategory = async () => {
 //   try{
@@ -27,10 +28,9 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const session = await getServerSession()
+  const session = await getServerSession(authOption)
   // const categories = await fetchGetAllCategory()
   const posts = await fetchGetAllPost()
-
   return (
     <html lang="en">
       <body className='bg-white font-medium ' >
@@ -46,11 +46,11 @@ export default async function RootLayout({
         </Head>
         <SessionProvider session={session}>
           <ToastContainer />
-          <NavbarComponent posts={posts} />
+          <NavbarComponent posts={posts} session={session} />
           {children}
           <FooterComponent />
         </SessionProvider>
-      </body>
+      </body> 
     </html>
   )
 }
